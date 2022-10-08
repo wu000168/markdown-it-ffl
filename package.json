@@ -1,0 +1,23 @@
+{
+  "name": "markdown-it-ffl",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "src/index.js",
+  "directories": {
+    "src": "src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wu000168/markdown-it-ffl.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wu000168/markdown-it-ffl/issues"
+  },
+  "homepage": "https://github.com/wu000168/markdown-it-ffl#readme",
+  "dependencies": {
+    "ffl": "../ffl"
+  }
+}
