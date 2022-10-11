@@ -213,9 +213,10 @@ module.exports = function math_plugin(md, options) {
         try {
             return ffl.renderToString(
                 tokens[idx].content,
-                tokens[idx + 1]?.type == 'ffl_style' ?
-                    tokens[idx + 1]?.content :
-                    null, {});
+                (options.globalStyle + '\n' ?? '')
+                + (tokens[idx + 1]?.type == 'ffl_style'
+                    ? tokens[idx + 1]?.content
+                    : null), {});
         } catch (error) {
             if (options.throwOnError) { console.log(error); }
             return tokens[idx].content;
@@ -223,21 +224,22 @@ module.exports = function math_plugin(md, options) {
     };
 
     var blockRenderer = function (tokens, idx) {
-        options.displayMode = false;
+        options.displayMode = true;
         try {
             return "<p>" + ffl.renderToString(
                 tokens[idx].content,
-                tokens[idx + 1]?.type == 'ffl_style' ?
-                    tokens[idx + 1]?.content :
-                    null, {}) + "</p>";
+                (options.globalStyle + '\n' ?? '')
+                    + tokens[idx + 1]?.type == 'ffl_style'
+                    ? tokens[idx + 1]?.content
+                    : null, {}) + "</p>";
         } catch (error) {
             if (options.throwOnError) { console.log(error); }
             return tokens[idx].content;
         }
     }
 
-    md.inline.ruler.before('math_inline', 'math_inline_ffl', math_inline);
-    md.block.ruler.before('math_block', 'math_block_ffl', math_block, {
+    md.inline.ruler.after('escape', 'math_inline_ffl', math_inline);
+    md.block.ruler.after('blockquote', 'math_block_ffl', math_block, {
         alt: ['paragraph', 'reference', 'blockquote', 'list']
     });
     md.renderer.rules.math_inline = inlineRenderer;
