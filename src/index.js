@@ -210,13 +210,14 @@ module.exports = function math_plugin(md, options) {
 
     var inlineRenderer = function (tokens, idx) {
         options.displayMode = false;
+        var style = '';
+        if (options.globalStyle) style += options.globalStyle + '\n';
         try {
             return ffl.renderToString(
                 tokens[idx].content,
-                (options.globalStyle + '\n' ?? '')
-                + (tokens[idx + 1]?.type == 'ffl_style'
+                style + (tokens[idx + 1]?.type == 'ffl_style'
                     ? tokens[idx + 1]?.content
-                    : null), {});
+                    : ''), {});
         } catch (error) {
             if (options.throwOnError) { console.log(error); }
             return tokens[idx].content;
@@ -225,13 +226,15 @@ module.exports = function math_plugin(md, options) {
 
     var blockRenderer = function (tokens, idx) {
         options.displayMode = true;
+        var style = '';
+        if (options.globalStyle) style += options.globalStyle + '\n';
         try {
             return "<p>" + ffl.renderToString(
                 tokens[idx].content,
-                (options.globalStyle + '\n' ?? '')
-                    + tokens[idx + 1]?.type == 'ffl_style'
+                style +
+                    tokens[idx + 1]?.type == 'ffl_style'
                     ? tokens[idx + 1]?.content
-                    : null, {}) + "</p>";
+                    : '', {}) + "</p>";
         } catch (error) {
             if (options.throwOnError) { console.log(error); }
             return tokens[idx].content;
