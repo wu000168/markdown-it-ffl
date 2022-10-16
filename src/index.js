@@ -217,7 +217,7 @@ module.exports = function math_plugin(md, options) {
                 tokens[idx].content,
                 style + (tokens[idx + 1]?.type == 'ffl_style'
                     ? tokens[idx + 1]?.content
-                    : ''), {});
+                    : ''), options);
         } catch (error) {
             if (options.throwOnError) { console.log(error); }
             return tokens[idx].content;
@@ -234,7 +234,7 @@ module.exports = function math_plugin(md, options) {
                 style +
                     tokens[idx + 1]?.type == 'ffl_style'
                     ? tokens[idx + 1]?.content
-                    : '', {}) + "</p>";
+                    : '', options) + "</p>";
         } catch (error) {
             if (options.throwOnError) { console.log(error); }
             return tokens[idx].content;
