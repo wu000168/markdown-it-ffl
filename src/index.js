@@ -231,10 +231,9 @@ module.exports = function math_plugin(md, options) {
         try {
             return "<p>" + ffl.renderToString(
                 tokens[idx].content,
-                style +
-                    tokens[idx + 1]?.type == 'ffl_style'
+                style + (tokens[idx + 1]?.type == 'ffl_style'
                     ? tokens[idx + 1]?.content
-                    : '', options) + "</p>";
+                    : ''), options) + "</p>";
         } catch (error) {
             if (options.throwOnError) { console.log(error); }
             return tokens[idx].content;
