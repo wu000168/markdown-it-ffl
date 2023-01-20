@@ -229,7 +229,7 @@ module.exports = function math_plugin(md, options) {
         var style = '';
         if (options.globalStyle) style += options.globalStyle + '\n';
         try {
-            return "<p>" + ffl.renderToString(
+            return "<p align=\"center\">" + ffl.renderToString(
                 tokens[idx].content,
                 style + (tokens[idx + 1]?.type == 'ffl_style'
                     ? tokens[idx + 1]?.content
