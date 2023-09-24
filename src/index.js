@@ -5,7 +5,7 @@ Based on markdown-it-katex, https://github.com/waylonflinn/markdown-it-katex
 /* jslint node: true */
 'use strict';
 
-var ffl = require('ffl').default;
+import ffl from 'ffl';
 
 // Test if potential opening or closing delimieter
 // Assumes that there is a "$" at state.src[pos]
@@ -203,7 +203,7 @@ function math_block(state, start, end, silent) {
     return true;
 }
 
-module.exports = function math_plugin(md, options) {
+export default function math_plugin(md, options) {
     // Default options
 
     options = options || {};
